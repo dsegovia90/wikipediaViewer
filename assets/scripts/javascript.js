@@ -2,7 +2,7 @@ $(document).ready(function() {
 	console.log("Ready!");
 
 	// $("#search-form").ajaxForm({url: '/w/api.php?action=query&format=json&list=search&utf8=1&srsearch=Albert+Einstein', type: 'post'})
-	var apiURL = "http://en.wikipedia.org/w/api.php?action=query&format=json&prop=info%7Cextracts&generator=search&exsentences=1&exlimit=10&exintro=1&explaintext=1&exsectionformat=plain&gsrsearch=";
+	var apiURL = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=info%7Cextracts&generator=search&exsentences=1&exlimit=10&exintro=1&explaintext=1&exsectionformat=plain&gsrsearch=";
 	var searchURL = "";
 	var json;
 
