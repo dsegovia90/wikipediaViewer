@@ -23,7 +23,13 @@ $(document).ready(function() {
 			var extract = searchQuery[keys[i]].extract;
 			console.log(extract);
 
-			$("#search-results").append('<div class="row list-group-item"><div class="col-xs-12">' + '<h4 class="list-group-item-heading">' + title + '</h4>' + '<p class="list-group-item-text">' + extract + '</p>' + '</div></div>');
+			$("#search-results").append('<a href="https://en.wikipedia.org/?curid=' + pageId + '" class="list-group-item" target="_blank">' + '<h4 class="list-group-item-heading">' + title + '</h4>' + '<p class="list-group-item-text">' + extract + '</p>' + '</a>');
+			$("#search-results").addClass('fadeInLeft');
+			$('#search-results').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+
+			$("#search-results").removeClass('fadeInLeft');
+
+			});
 
 		};
 
@@ -34,18 +40,28 @@ $(document).ready(function() {
 	
 	$("#submit-btn").click(function() {
 		searchURL = $("#search-input").val().replace(/\s/, "+");
-		console.log(searchURL);
 		
-		$.ajax({
-		  type: "GET",
-		  url: apiURL + searchURL,
-		  dataType: 'jsonp',
-		  success: function(data) {
-		    json = data.query.pages;
-		    console.log(data.query);
-		    createSearchResults(json);
-		  }
+
+		$("#search-results").addClass('animated fadeOutRight');
+
+		$('#search-results').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+
+			$("#search-results").removeClass('fadeOutRight');
+			$("#search-results").html("");
+
+			$.ajax({
+			  type: "GET",
+			  url: apiURL + searchURL,
+			  dataType: 'jsonp',
+			  success: function(data) {
+			    json = data.query.pages;
+			    console.log(data.query);
+			    createSearchResults(json);
+			  }
+			});
+
 		});
+
 
 
 
@@ -54,6 +70,11 @@ $(document).ready(function() {
 	$("#search-form").submit(function(e) {
     e.preventDefault();
 	});
+
+
+
+
+
 
 
 
